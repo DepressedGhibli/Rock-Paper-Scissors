@@ -1,54 +1,79 @@
 function getComputerChoice(){
-    let choice = Math.floor(Math.random() * 3)
-    let computerChoice
-
-    if (choice == 0){
-        computerChoice = "rock"
+    let number =  Math.floor((Math.random() * 3))
+    if(number == 0){
+        console.log("rock")
+        return "rock"
     }
-    else if (choice ==1){
-        computerChoice = "paper"
+    else if(number == 1){
+        console.log("paper")
+        return "paper"
     }
     else {
-        computerChoice = "scissors"
+        console.log("scissors")
+        return "scissors"
     }
-    return computerChoice;
 }
 
 function getPlayerChoice(){
-    let playerChoice = prompt("Your move: ")
-    return playerChoice;
+    return prompt("Your move: ").toLowerCase()
 }
-
-let computerSelection = getComputerChoice()
-let playerSelection = getPlayerChoice()
-
-
 
 function playRound(a, b){
-    b = b.toLowerCase()
-
-    if (a == 'rock' && b == 'paper'){
-        console.log("You Win! Paper beats Rock")
+    
+    if (a == "rock" && b == "scissors") 
+    {
+        return "You Win!"
     }
-    else if (a == 'scissors' && b == 'rock'){
-        console.log("You Win! Rock beats Scissors")
+    else if (a == "paper" && b == "rock") 
+    {
+        return "You Win!"
     }
-    else if (a == 'paper' && b == 'scissors'){
-        console.log("You Win! Scissors beats Paper")
+    else if (a == "scissors" && b == "paper") 
+    {
+        return "You Win!"
     }
-    else if (a == 'rock' && b == 'scissors'){
-        console.log("You Lose! Rock beats scissors")
+    else if (a == "paper" && b == "scissors") 
+    {
+        return "You Lose!"
     }
-    else if (a == 'scissors' && b == 'paper'){
-        console.log("You Lose! Scissors beats Paper")
+    else if (a == "rock" && b == "paper") 
+    {
+        return "You Lose!"
     }
-    else if (a == 'paper' && b == 'rock'){
-        console.log("You Lose! Paper beats Rock")
+    else if (a == "scissors" && b == "rock") 
+    {
+        return "You Lose!"
     }
-    else {
-        console.log("It's a tie!")
+    else if (a == b){
+        return "It's a Tie!"
     }
 }
 
-playRound(computerSelection, playerSelection)
 
+function game (playRound){
+   
+    let computerScore = 0
+    let playerScore = 0
+
+    for(i =0; i < 100; i++){
+
+        let round = playRound(getPlayerChoice(), getComputerChoice())
+
+        if (round == "You Win!"){
+            playerScore++
+        }
+        else if(round == "You Lose!"){
+                computerScore++
+            }
+        
+            if (computerScore == 5){
+                return "computer wins"
+            }
+            else if (playerScore == 5){
+                return "Player wins"
+            }
+    }
+
+}
+
+console.log(game(playRound))
