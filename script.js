@@ -55,7 +55,7 @@ function game (playRound){
     let computerScore = 0
     let playerScore = 0
 
-    for(i =0; i < 100; i++){
+    for(i =0; i < 5; i++){
 
         let round = playRound(getPlayerChoice(), getComputerChoice())
 
@@ -65,14 +65,17 @@ function game (playRound){
         else if(round == "You Lose!"){
                 computerScore++
             }
-        
-            if (computerScore == 5){
-                return "computer wins"
-            }
-            else if (playerScore == 5){
-                return "Player wins"
-            }
     }
+
+    if (computerScore > playerScore){
+        return "computer wins"
+   }
+   else if (playerScore > computerScore){
+       return "Player wins"
+   }
+   else{
+    return "Player  Tie!"
+   }
 
 }
 
