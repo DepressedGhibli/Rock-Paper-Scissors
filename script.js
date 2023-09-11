@@ -1,82 +1,102 @@
 function getComputerChoice(){
-    let number =  Math.floor((Math.random() * 3))
+        let number =  Math.floor((Math.random() * 3))
     if(number == 0){
-        console.log("rock")
         return "rock"
     }
     else if(number == 1){
-        console.log("paper")
         return "paper"
     }
     else {
-        console.log("scissors")
         return "scissors"
     }
 }
 
-function getPlayerChoice(){
-    return prompt("Your move: ").toLowerCase()
-}
+let compSelection = getComputerChoice()
+
+let results;
+
+let win = 0, lose = 0, times = 0;
 
 function playRound(a, b){
     
-    if (a == "rock" && b == "scissors") 
-    {
-        return "You Win!"
+    if (times < 5){
+        if (a == "rock" && b == "scissors") 
+    { 
+        win++
+        times++
+        results = "You Win! Rock beats Scissors"
     }
     else if (a == "paper" && b == "rock") 
     {
-        return "You Win!"
+        win++
+        times++
+        results = "You Win! Paper beats Rock"
     }
     else if (a == "scissors" && b == "paper") 
     {
-        return "You Win!"
+        win++
+        times++
+        results = "You Win! Scissors beats Paper"
+
     }
     else if (a == "paper" && b == "scissors") 
     {
-        return "You Lose!"
+        lose++
+        times++
+        results = "You Lose! Scissors beats Paper"
     }
     else if (a == "rock" && b == "paper") 
     {
-        return "You Lose!"
+        lose++
+        times++
+        results = "You Lose! Rock beats Scissors"
     }
     else if (a == "scissors" && b == "rock") 
     {
-        return "You Lose!"
+        lose++
+        times++
+        results = "You lose! Rock beats Scissors"
     }
     else if (a == b){
-        return "It's a Tie!"
+        times++
+        results = "It's a Tie!"
     }
+    computerScore.textContent= `computer score: ${lose}`
+    playerScore.textContent= `Player score: ${win}`
 }
-
-
-function game (playRound){
-   
-    let computerScore = 0
-    let playerScore = 0
-
-    for(i =0; i < 5; i++){
-
-        let round = playRound(getPlayerChoice(), getComputerChoice())
-
-        if (round == "You Win!"){
-            playerScore++
+    if (times > 4){
+        if (lose>win){
+            results = "GAME OVER - YOU LOSE"
+            header.style.color = 'red';
         }
-        else if(round == "You Lose!"){
-                computerScore++
-            }
+        else if (win>lose){
+            results = "GAME OVER - YOU WIN"
+            header.style.color = 'green';
+        }
+        else{
+            results = "GAME OVER - IT'S A TIE"
+            header.style.color = 'yellow';
+        }
     }
-
-    if (computerScore > playerScore){
-        return "computer wins"
-   }
-   else if (playerScore > computerScore){
-       return "Player wins"
-   }
-   else{
-    return "Player  Tie!"
-   }
-
+    header.textContent = results
+    return results
 }
 
-console.log(game(playRound))
+const header = document.querySelector('h1');
+const computerChoice = document.querySelectorAll('p')[0]
+const playerChoice = document.querySelectorAll('p')[1]
+const computerScore = document.querySelectorAll('p')[2]
+const playerScore= document.querySelectorAll('p')[3]
+
+const selections = document.querySelectorAll('button')
+
+selections.forEach( (button) => {button.addEventListener("click",() => {
+    if (times < 5 ){
+    let PlayerChoice = button.id;
+    playRound(PlayerChoice,getComputerChoice())
+    computerChoice.textContent = `Computer choice = ${compSelection}`
+    playerChoice.textContent =`Player choice = ${button.id}` 
+    }
+})    
+})
+
